@@ -14,12 +14,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('messages');
+    return view('home');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('messages', 'MessageController')->middleware('auth');
-Route::resource('replies', 'ReplyController')->middleware('auth');
+Route::middleware(['auth'])->group(function () {
+
+    Route::resource('messages', 'MessageController');
+
+    // Need to pass the message id to the create method in ReplyController
+    Route::get('replies/create/{message_id}', 'ReplyController@create');
+    Route::resource('replies', 'ReplyController', ['except' => 'create']);
+
+});
+
+
