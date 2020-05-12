@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreMessageRequest;
 use App\Message;
 use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
@@ -38,7 +37,7 @@ class MessageController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param StoreMessageRequest $request
      * @return Response
      */
     public function store(StoreMessageRequest $request)
@@ -69,6 +68,7 @@ class MessageController extends Controller
      *
      * @param Message $message
      * @return Response
+     * @throws AuthorizationException
      */
     public function edit(Message $message)
     {
@@ -80,20 +80,20 @@ class MessageController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param StoreMessageRequest $request
      * @param Message $message
      * @return void
      * @throws AuthorizationException
      */
     public function update(StoreMessageRequest $request, Message $message)
     {
+
         $this->authorize('update', Message::find($message->id));
 
         $message->message = $request->input('message');
         $message->save();
 
         return redirect('messages');
-
 
     }
 
