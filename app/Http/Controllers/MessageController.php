@@ -12,12 +12,6 @@ use Illuminate\Support\Facades\Auth;
 class MessageController extends Controller
 {
 
-//    public function __construct()
-//    {
-//        $this->authorizeResource(Message::class, 'messages');
-//    }
-
-
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +19,8 @@ class MessageController extends Controller
      */
     public function index()
     {
-        $messages = Message::all();
+        $messages = Message::with('reply')
+            ->get();
 
         return view('message.index', compact('messages'));
     }
