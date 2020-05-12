@@ -6,16 +6,11 @@
 
         @foreach($messages as $message)
 
-
-
             @include('message.message', ['message' => $message])
 
         @endforeach
 
     </div>
-
-
-
 
 @endsection
 
