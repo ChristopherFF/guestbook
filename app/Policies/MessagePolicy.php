@@ -30,7 +30,7 @@ class MessagePolicy
      */
     public function view(User $user, Message $message)
     {
-        //
+        return true;
     }
 
     /**
@@ -65,7 +65,7 @@ class MessagePolicy
      */
     public function delete(User $user, Message $message)
     {
-        return $user->id == $message->user_id || $user->is_admin;
+        return $user->id === $message->user_id || $user->is_admin;
     }
 
     /**

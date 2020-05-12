@@ -14,12 +14,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('messages');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('messages', 'MessageController');
-Route::resource('replies', 'ReplyController');
+Route::resource('messages', 'MessageController')->middleware('auth');
+Route::resource('replies', 'ReplyController')->middleware('auth');
